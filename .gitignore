@@ -1,0 +1,20 @@
+##########################
+# UNREAL GENERATED FILES #
+##########################
+**/Binaries/
+**/Build/
+**/DerivedDataCache
+**/Intermediate/
+**/Saved
+**/Content/StarterContent/
+**/Content/StarterContent
+/StarterContent
+
+######################
+# VS GENERATED FILES #
+######################
+**/*.sdf
+**/*.VC.db
+**/*.sln
+**/*.VC.opendb
+**/*.suo
