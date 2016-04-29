@@ -20,8 +20,17 @@ public:
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;	
 
-	/** Getter de la StaticMesh */
-	FORCEINLINE class UStaticMeshComponent* GetMesh() const { return PickupMesh; }
+	FORCEINLINE UStaticMeshComponent* GetMesh() const { return PickupMesh; }
+
+	// BlueprintPure se utiliza con métodos que no modifican el estado del juego (ej. Getters)
+	// En el editor de blueprints no tienen input
+	UFUNCTION(BlueprintPure, Category = "Pickup")
+	bool IsActive() const;
+
+	// BlueprintCallable se utiliza con métodos que sí pueden modificar el estado del juego
+	// En el editor de blueprints tienen input
+	UFUNCTION(BlueprintCallable, Category = "Pickup")
+	void SetActive(bool NewPickupState);
 
 protected:
 	/** True cuando el popup puede usarse*/
