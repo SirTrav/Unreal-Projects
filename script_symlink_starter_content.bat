@@ -12,10 +12,7 @@ goto check_Permissions
 	
 :make_sym_link
 set /p project_main_folder="Ruta de la carpeta principal del proyecto: "
-set current_directory = %~dp0
-
-mklink /d "%project_main_folder%\Content\StarterContent" "%current_directory%\StarterContent"
-
+mklink /d "%project_main_folder%\Content\StarterContent" "%~dp0\StarterContent"
 
 :end
 pause
