@@ -12,8 +12,4 @@ UCLASS()
 class EXTPLAYERCONTROLLER_API AExtPlayerControllerGameMode : public AGameMode
 {
 	GENERATED_BODY()
-	
-	
-	
-	
 };
