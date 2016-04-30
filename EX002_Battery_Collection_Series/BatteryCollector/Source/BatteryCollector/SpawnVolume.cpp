@@ -24,6 +24,8 @@ void ASpawnVolume::BeginPlay()
 {
 	Super::BeginPlay();
 	SpawnDelay = FMath::FRandRange(SpawnDelayRangeLow, SpawnDelayRangeHigh);
+
+	// El timer llamará a la función "SpawnPickup" automáticamente
 	GetWorldTimerManager().SetTimer(SpawnTimer, this, &ASpawnVolume::SpawnPickup, SpawnDelay, false);
 }
 
@@ -64,6 +66,7 @@ void ASpawnVolume::SpawnPickup()
 			// Creamos el pickup
 			APickup* const SpawnedPickup = World->SpawnActor<APickup>(WhatToSpawn, SpawnLocation, SpawnRotation, SpawnParams);
 
+			// Reiniciamos el timer
 			SpawnDelay = FMath::FRandRange(SpawnDelayRangeLow, SpawnDelayRangeHigh);
 			GetWorldTimerManager().SetTimer(SpawnTimer, this, &ASpawnVolume::SpawnPickup, SpawnDelay, false);
 		}
