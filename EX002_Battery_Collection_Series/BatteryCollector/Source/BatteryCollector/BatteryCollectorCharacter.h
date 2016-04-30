@@ -31,6 +31,17 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate;
 
+	UFUNCTION(BlueprintPure, Category = "Power")
+	float GetInitialPower();
+
+	UFUNCTION(BlueprintPure, Category = "Power")
+	float GetCurrentPower();
+
+	/** Método para actualizar la energía del personaje. 
+	@param PowerChange La cantidad de energía a añadir. Puede ser positivo o negativo.*/
+	UFUNCTION(BlueprintCallable, Category = "Power")
+	void UpdatePower(float PowerChange);
+
 protected:
 
 	/** Called for forwards/backward input */
@@ -63,8 +74,12 @@ protected:
 	// End of APawn interface
 
 	/** Se llamará a esta función cuando pulsemos la tecla de "Recoger" */
-	UFUNCTION(BlueprintCallable, Category ="Pickups")
+	UFUNCTION(BlueprintCallable, Category = "Pickups")
 	void CollectPickups();
+
+	/** Energía inicial*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power")
+	float InitialPower;
 
 public:
 	/** Returns CameraBoom subobject **/
@@ -73,5 +88,10 @@ public:
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
 	FORCEINLINE class USphereComponent* GetCollectionSphere() const { return CollectionSphere;  }
+
+private:
+	/** Energía actual del personaje */
+	UPROPERTY(VisibleAnywhere, Category = "Power")
+	float CharacterPower;
 };
 

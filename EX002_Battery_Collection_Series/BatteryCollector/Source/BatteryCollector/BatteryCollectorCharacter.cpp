@@ -43,6 +43,9 @@ ABatteryCollectorCharacter::ABatteryCollectorCharacter()
 	CollectionSphere->AttachTo(RootComponent);
 	CollectionSphere->SetSphereRadius(200.0f);
 
+	InitialPower = 2000.0f;
+	CharacterPower = InitialPower;
+
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 }
@@ -151,3 +154,19 @@ void ABatteryCollectorCharacter::CollectPickups()
 		}
 	}
 }
+
+float ABatteryCollectorCharacter::GetInitialPower()
+{
+	return InitialPower;
+}
+
+float ABatteryCollectorCharacter::GetCurrentPower()
+{
+	return CharacterPower;
+}
+
+void ABatteryCollectorCharacter::UpdatePower(float PowerChange)
+{
+	CharacterPower = CharacterPower + PowerChange;
+}
+
