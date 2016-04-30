@@ -20,6 +20,11 @@ public:
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;	
 
+	/** Function ejecutada cuando se recoge el pickup*/
+	UFUNCTION(BlueprintNativeEvent)
+	void WasCollected();
+	virtual void WasCollected_Implementation();
+
 	FORCEINLINE UStaticMeshComponent* GetMesh() const { return PickupMesh; }
 
 	// BlueprintPure se utiliza con métodos que no modifican el estado del juego (ej. Getters)
