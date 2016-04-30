@@ -62,6 +62,10 @@ protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 	// End of APawn interface
 
+	/** Se llamará a esta función cuando pulsemos la tecla de "Recoger" */
+	UFUNCTION(BlueprintCallable, Category ="Pickups")
+	void CollectPickups();
+
 public:
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }

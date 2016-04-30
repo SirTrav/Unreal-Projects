@@ -2,6 +2,7 @@
 
 #include "BatteryCollector.h"
 #include "BatteryCollectorCharacter.h"
+#include "Pickup.h"
 
 //////////////////////////////////////////////////////////////////////////
 // ABatteryCollectorCharacter
@@ -55,6 +56,8 @@ void ABatteryCollectorCharacter::SetupPlayerInputComponent(class UInputComponent
 	check(InputComponent);
 	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	InputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
+
+	InputComponent->BindAction("Collect", IE_Pressed, this, &ABatteryCollectorCharacter::CollectPickups);
 
 	InputComponent->BindAxis("MoveForward", this, &ABatteryCollectorCharacter::MoveForward);
 	InputComponent->BindAxis("MoveRight", this, &ABatteryCollectorCharacter::MoveRight);
@@ -128,5 +131,23 @@ void ABatteryCollectorCharacter::MoveRight(float Value)
 		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 		// add movement in that direction
 		AddMovementInput(Direction, Value);
+	}
+}
+
+void ABatteryCollectorCharacter::CollectPickups() 
+{
+	// Recogemos todos los Actors que solapen con el volumen de colisión
+	TArray<AActor*> CollectedActors;
+	CollectionSphere->GetOverlappingActors(CollectedActors);
+
+	for (auto Actor : CollectedActors) 
+	{
+		// Casteamos a APickup
+		APickup* TestPickup = Cast<APickup>(Actor);
+		if (TestPickup && !TestPickup->IsPendingKill() && TestPickup->IsActive()) {
+		// Si el casteo es correcto y el pickup está activo llamamos a la función WasCollected del pickup
+			TestPickup->WasCollected();
+			TestPickup->SetActive(false);
+		}
 	}
 }
