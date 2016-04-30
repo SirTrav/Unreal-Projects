@@ -31,6 +31,15 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Spawning")
 	TSubclassOf<class APickup> WhatToSpawn;
 
+	FTimerHandle SpawnTimer;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawning")
+	float SpawnDelayRangeLow;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawning")
+	float SpawnDelayRangeHigh;
+
+
 private:
 	/** BoxComponent que indica dónde podrán spawnear baterías*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Spawning", meta = (AllowPrivateAccess = true))
@@ -38,4 +47,7 @@ private:
 
 	/** Encargado de realizar los spawns*/
 	void SpawnPickup();
+
+	float SpawnDelay;
 };
+
