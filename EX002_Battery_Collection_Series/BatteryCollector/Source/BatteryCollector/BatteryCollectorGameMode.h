@@ -10,6 +10,12 @@ class ABatteryCollectorGameMode : public AGameMode
 
 public:
 	ABatteryCollectorGameMode();
+	virtual void Tick(float DeltaTime) override;
+
+protected:
+	/** Velocidad a la que decae la energía del personaje */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Power")
+	float DecayRate;
 };
 
 
