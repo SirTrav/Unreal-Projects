@@ -3,6 +3,7 @@
 #include "BatteryCollector.h"
 #include "BatteryCollectorCharacter.h"
 #include "Pickup.h"
+#include "BatteryPickup.h"
 
 //////////////////////////////////////////////////////////////////////////
 // ABatteryCollectorCharacter
@@ -143,6 +144,8 @@ void ABatteryCollectorCharacter::CollectPickups()
 	TArray<AActor*> CollectedActors;
 	CollectionSphere->GetOverlappingActors(CollectedActors);
 
+	float CollectedPower = 0.0f;
+
 	for (auto Actor : CollectedActors) 
 	{
 		// Casteamos a APickup
@@ -150,8 +153,18 @@ void ABatteryCollectorCharacter::CollectPickups()
 		if (TestPickup && !TestPickup->IsPendingKill() && TestPickup->IsActive()) {
 		// Si el casteo es correcto y el pickup está activo llamamos a la función WasCollected del pickup
 			TestPickup->WasCollected();
+			// Si es una batería aumentamos la energía total recogida
+			ABatteryPickup* const TestBattery = Cast<ABatteryPickup>(TestPickup);
+			if (TestBattery) 
+			{
+				CollectedPower += TestBattery->GetPower();
+			}
 			TestPickup->SetActive(false);
 		}
+	}
+	if (CollectedPower > 0) 
+	{
+		UpdatePower(CollectedPower);
 	}
 }
 
