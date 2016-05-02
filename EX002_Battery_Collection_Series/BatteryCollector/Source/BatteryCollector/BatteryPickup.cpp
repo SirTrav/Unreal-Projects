@@ -15,6 +15,7 @@ ABatteryPickup::ABatteryPickup()
 void ABatteryPickup::WasCollected_Implementation()
 {
 	Super::WasCollected_Implementation();
+
 	// Destruimos el objeto
 	Destroy();
 }
