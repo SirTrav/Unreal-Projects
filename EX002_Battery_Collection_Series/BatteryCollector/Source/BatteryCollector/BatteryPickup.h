@@ -21,8 +21,19 @@ public:
 	void WasCollected_Implementation() override;
 
 	float GetPower();
+
+	void ABatteryPickup::Tick(float DeltaTime) override;
 protected:
 	/** Cuanta energía da la batería al jugador*/
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Power", Meta = (BlueprintProtected = "true"))
 	float BatteryPower;
+
+	//Particle system variable
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Particles" , Meta = (BlueprintProtected = "true"))
+	class UParticleSystemComponent* ParticleSystem;
+
+private:
+	void DestroyAfterDelay();
+	void ABatteryPickup::UpdateBeamTargetPoint();
+	UParticleSystem* ParticleSystemTemplate;
 };
